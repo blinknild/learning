@@ -1,0 +1,990 @@
+{
+  "version": 2,
+  "items": [
+    {
+      "id": 1,
+      "level": "N3",
+      "pattern": "～すぎる",
+      "meaning": "过度……；太……",
+      "usages": [
+        {
+          "continuation": "动词ます形去掉「ます」+ すぎる",
+          "examples": [
+            {
+              "jaHtml": "<ruby>寝<rt>ね</rt></ruby>すぎて、<ruby>頭<rt>あたま</rt></ruby>が<ruby>痛<rt>いた</rt></ruby>い。",
+              "zh": "睡过头了，头疼。"
+            }
+          ]
+        },
+        {
+          "continuation": "イ形容词词干／ナ形容词词干 + すぎる",
+          "examples": [
+            {
+              "jaHtml": "<ruby>心配<rt>しんぱい</rt></ruby>すぎると、<ruby>体<rt>からだ</rt></ruby>に<ruby>悪<rt>わる</rt></ruby>いよ。",
+              "zh": "太过担心的话，对身体不好哦。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "level": "N3",
+      "pattern": "～やすい",
+      "meaning": "容易……；易于……",
+      "usages": [
+        {
+          "continuation": "サ变动词「する」→「し」+ やすい",
+          "examples": [
+            {
+              "jaHtml": "このソフトはインストールしやすく、<ruby>操作<rt>そうさ</rt></ruby>もしやすい。",
+              "zh": "这款软件容易安装，操作也很简单。"
+            }
+          ]
+        },
+        {
+          "continuation": "一般动词ます形去掉「ます」+ やすい",
+          "examples": [
+            {
+              "jaHtml": "このペンは<ruby>書<rt>か</rt></ruby>きやすい。",
+              "zh": "这支笔很好写。"
+            },
+            {
+              "jaHtml": "この<ruby>本<rt>ほん</rt></ruby>は<ruby>字<rt>じ</rt></ruby>が<ruby>大<rt>おお</rt></ruby>きくて<ruby>読<rt>よ</rt></ruby>みやすい。",
+              "zh": "这本书字大，容易读。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "level": "N3",
+      "pattern": "～にくい",
+      "meaning": "难以……；不好……",
+      "usages": [
+        {
+          "continuation": "サ变动词「する」→「し」+ にくい",
+          "examples": [
+            {
+              "jaHtml": "このフォームは<ruby>記入<rt>きにゅう</rt></ruby>しにくく、<ruby>間違<rt>まちが</rt></ruby>いやすい。",
+              "zh": "这张表不好填，还容易填错。"
+            }
+          ]
+        },
+        {
+          "continuation": "一般动词ます形去掉「ます」+ にくい",
+          "examples": [
+            {
+              "jaHtml": "この<ruby>靴<rt>くつ</rt></ruby>は<ruby>履<rt>は</rt></ruby>きにくい。",
+              "zh": "这双鞋不好穿。"
+            },
+            {
+              "jaHtml": "<ruby>彼<rt>かれ</rt></ruby>の<ruby>字<rt>じ</rt></ruby>は<ruby>読<rt>よ</rt></ruby>みにくい。",
+              "zh": "他的字很难认。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "level": "N3",
+      "pattern": "～そうだ（様態）",
+      "meaning": "看起来……（根据外观的推测）",
+      "usages": [
+        {
+          "continuation": "イ形容词词干（去掉い）+ そうだ（様態）",
+          "examples": [
+            {
+              "jaHtml": "このスープはおいしそうだ。",
+              "zh": "这汤看起来很好喝。"
+            }
+          ]
+        },
+        {
+          "continuation": "动词ます形去掉「ます」+ そうだ（様態）",
+          "examples": [
+            {
+              "jaHtml": "<ruby>雨<rt>あめ</rt></ruby>が<ruby>降<rt>ふ</rt></ruby>りそうだから、<ruby>傘<rt>かさ</rt></ruby>を<ruby>持<rt>も</rt></ruby>って<ruby>行<rt>い</rt></ruby>こう。",
+              "zh": "看起来要下雨了，带伞去吧。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "level": "N3",
+      "pattern": "～そうだ（伝聞）",
+      "meaning": "听说……（传闻）",
+      "usages": [
+        {
+          "continuation": "动词／イ形容词普通形 + そうだ（伝聞）",
+          "examples": [
+            {
+              "jaHtml": "<ruby>明日<rt>あした</rt></ruby>は<ruby>雪<rt>ゆき</rt></ruby>が<ruby>降<rt>ふ</rt></ruby>るそうだ。",
+              "zh": "听说明天会下雪。"
+            }
+          ]
+        },
+        {
+          "continuation": "名词／ナ形容词词干 + だ + そうだ（伝聞）",
+          "examples": [
+            {
+              "jaHtml": "この<ruby>店<rt>みせ</rt></ruby>は<ruby>有名<rt>ゆうめい</rt></ruby>だそうだ。",
+              "zh": "听说这家店很有名。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "level": "N3",
+      "pattern": "～途中で",
+      "meaning": "在……途中；正在……的时候",
+      "usages": [
+        {
+          "continuation": "动词辞书形 + 途中で",
+          "examples": [
+            {
+              "jaHtml": "<ruby>家<rt>いえ</rt></ruby>に<ruby>帰<rt>かえ</rt></ruby>る<ruby>途中<rt>とちゅう</rt></ruby>で、<ruby>友達<rt>ともだち</rt></ruby>に<ruby>会<rt>あ</rt></ruby>った。",
+              "zh": "在回家路上遇到了朋友。"
+            }
+          ]
+        },
+        {
+          "continuation": "名词 + の途中で",
+          "examples": [
+            {
+              "jaHtml": "<ruby>会議<rt>かいぎ</rt></ruby>の<ruby>途中<rt>とちゅう</rt></ruby>で<ruby>携帯<rt>けいたい</rt></ruby>が<ruby>鳴<rt>な</rt></ruby>った。",
+              "zh": "会议进行中手机响了。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "level": "N3",
+      "pattern": "～ながら",
+      "meaning": "一边……一边……",
+      "usages": [
+        {
+          "continuation": "动词ます形 + ながら",
+          "examples": [
+            {
+              "jaHtml": "<ruby>音楽<rt>おんがく</rt></ruby>を<ruby>聞<rt>き</rt></ruby>きながら、<ruby>勉強<rt>べんきょう</rt></ruby>する。",
+              "zh": "一边听音乐一边学习。"
+            },
+            {
+              "jaHtml": "<ruby>歩<rt>ある</rt></ruby>きながらスマホを<ruby>見<rt>み</rt></ruby>るのは<ruby>危<rt>あぶ</rt></ruby>ない。",
+              "zh": "边走边看手机很危险。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "level": "N3",
+      "pattern": "～てしょうがない／～て仕方がない",
+      "meaning": "非常……；……得不得了",
+      "usages": [
+        {
+          "continuation": "イ形容词词干 + く + て + しょうがない／仕方がない",
+          "examples": [
+            {
+              "jaHtml": "<ruby>故郷<rt>こきょう</rt></ruby>が<ruby>恋<rt>こ</rt></ruby>しくてしょうがない。",
+              "zh": "非常想念故乡。"
+            },
+            {
+              "jaHtml": "<ruby>眠<rt>ねむ</rt></ruby>くてしょうがない。",
+              "zh": "困得不得了。"
+            }
+          ]
+        },
+        {
+          "continuation": "ナ形容词词干 + で + しょうがない／仕方がない",
+          "examples": [
+            {
+              "jaHtml": "この<ruby>仕事<rt>しごと</rt></ruby>は<ruby>面倒<rt>めんどう</rt></ruby>でしょうがない。",
+              "zh": "这份工作麻烦透了。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "level": "N3",
+      "pattern": "～ばかりだ",
+      "meaning": "一个劲地……；总是……（多含负面）",
+      "usages": [
+        {
+          "continuation": "名词 + ばかりだ",
+          "examples": [
+            {
+              "jaHtml": "<ruby>最近<rt>さいきん</rt></ruby>、<ruby>悪<rt>わる</rt></ruby>いニュースばかりだ。",
+              "zh": "最近净是坏消息。"
+            }
+          ]
+        },
+        {
+          "continuation": "动词て形 + ばかり + いる",
+          "examples": [
+            {
+              "jaHtml": "<ruby>甘<rt>あま</rt></ruby>いものばかり<ruby>食<rt>た</rt></ruby>べていると、<ruby>太<rt>ふと</rt></ruby>るよ。",
+              "zh": "总吃甜食会长胖哦。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "level": "N3",
+      "pattern": "～一方だ",
+      "meaning": "越来越……（变化趋势）",
+      "usages": [
+        {
+          "continuation": "动词辞书形 + 一方だ",
+          "examples": [
+            {
+              "jaHtml": "<ruby>人口<rt>じんこう</rt></ruby>は<ruby>減<rt>へ</rt></ruby>る<ruby>一方<rt>いっぽう</rt></ruby>だ。",
+              "zh": "人口在持续减少。"
+            },
+            {
+              "jaHtml": "<ruby>状況<rt>じょうきょう</rt></ruby>は<ruby>悪化<rt>あっか</rt></ruby>する<ruby>一方<rt>いっぽう</rt></ruby>だ。",
+              "zh": "情况在一路恶化。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "level": "N3",
+      "pattern": "～ことにしている",
+      "meaning": "（习惯性地）规定自己……",
+      "usages": [
+        {
+          "continuation": "动词辞书形 + ことにしている",
+          "examples": [
+            {
+              "jaHtml": "<ruby>毎朝<rt>まいあさ</rt></ruby>、<ruby>散歩<rt>さんぽ</rt></ruby>することにしている。",
+              "zh": "我规定自己每天早上散步。"
+            }
+          ]
+        },
+        {
+          "continuation": "动词ない形 + ことにしている",
+          "examples": [
+            {
+              "jaHtml": "<ruby>夜<rt>よる</rt></ruby>はスマホを<ruby>見<rt>み</rt></ruby>ないことにしている。",
+              "zh": "我规定自己晚上不看手机。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "level": "N3",
+      "pattern": "～ことになる",
+      "meaning": "（客观上）变成……；决定为……",
+      "usages": [
+        {
+          "continuation": "动词辞书形／する + ことになる",
+          "examples": [
+            {
+              "jaHtml": "<ruby>来月<rt>らいげつ</rt></ruby>から<ruby>大阪<rt>おおさか</rt></ruby>に<ruby>転勤<rt>てんきん</rt></ruby>することになった。",
+              "zh": "定下来从下月起调去大阪工作。"
+            }
+          ]
+        },
+        {
+          "continuation": "名词短语 + の／こと + になる（结果、规定）",
+          "examples": [
+            {
+              "jaHtml": "このボタンを<ruby>押<rt>お</rt></ruby>すと、<ruby>予約<rt>よやく</rt></ruby>が<ruby>取<rt>と</rt></ruby>り<ruby>消<rt>け</rt></ruby>しになる。",
+              "zh": "一按这个按钮，预约就会被取消。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "level": "N3",
+      "pattern": "～ために（目的・原因）",
+      "meaning": "为了……；因为……",
+      "usages": [
+        {
+          "continuation": "动词辞书形／ない形 + ために（目的）",
+          "examples": [
+            {
+              "jaHtml": "<ruby>試験<rt>しけん</rt></ruby>に<ruby>合格<rt>ごうかく</rt></ruby>するために<ruby>勉強<rt>べんきょう</rt></ruby>している。",
+              "zh": "为了通过考试在学习。"
+            }
+          ]
+        },
+        {
+          "continuation": "名词 + の + ために（原因）",
+          "examples": [
+            {
+              "jaHtml": "<ruby>台風<rt>たいふう</rt></ruby>のために<ruby>電車<rt>でんしゃ</rt></ruby>が<ruby>止<rt>と</rt></ruby>まった。",
+              "zh": "因为台风，电车停运了。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "level": "N3",
+      "pattern": "～おかげで",
+      "meaning": "多亏……；托……的福",
+      "usages": [
+        {
+          "continuation": "名词 + のおかげで",
+          "examples": [
+            {
+              "jaHtml": "<ruby>先生<rt>せんせい</rt></ruby>のおかげで、<ruby>合格<rt>ごうかく</rt></ruby>できた。",
+              "zh": "多亏老师，我才能合格。"
+            },
+            {
+              "jaHtml": "<ruby>薬<rt>くすり</rt></ruby>のおかげで、<ruby>熱<rt>ねつ</rt></ruby>が<ruby>下<rt>さ</rt></ruby>がった。",
+              "zh": "托药的福，退烧了。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "level": "N3",
+      "pattern": "～せいで／～せいか",
+      "meaning": "都怪……；因为……（消极）",
+      "usages": [
+        {
+          "continuation": "名词 + のせいで",
+          "examples": [
+            {
+              "jaHtml": "<ruby>寝坊<rt>ねぼう</rt></ruby>のせいで、<ruby>遅刻<rt>ちこく</rt></ruby>した。",
+              "zh": "都怪睡过头，迟到了。"
+            }
+          ]
+        },
+        {
+          "continuation": "名词 + のせいか（推测性原因）",
+          "examples": [
+            {
+              "jaHtml": "<ruby>雨<rt>あめ</rt></ruby>のせいか、<ruby>気分<rt>きぶん</rt></ruby>が<ruby>優<rt>すぐ</rt></ruby>れない。",
+              "zh": "也许是因为下雨，心情不太好。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "level": "N3",
+      "pattern": "～ようにする／～ようにしている",
+      "meaning": "努力做到……；养成……的习惯",
+      "usages": [
+        {
+          "continuation": "动词辞书形 + ようにしている",
+          "examples": [
+            {
+              "jaHtml": "<ruby>毎日<rt>まいにち</rt></ruby>、<ruby>水<rt>みず</rt></ruby>をたくさん<ruby>飲<rt>の</rt></ruby>むようにしている。",
+              "zh": "我尽量每天喝很多水。"
+            }
+          ]
+        },
+        {
+          "continuation": "动词ない形 + ように（する）",
+          "examples": [
+            {
+              "jaHtml": "<ruby>遅刻<rt>ちこく</rt></ruby>しないように、<ruby>早<rt>はや</rt></ruby>めに<ruby>家<rt>いえ</rt></ruby>を<ruby>出<rt>で</rt></ruby>る。",
+              "zh": "为了不迟到，早点出门。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "level": "N3",
+      "pattern": "～とおりに",
+      "meaning": "按照……那样；正如……",
+      "usages": [
+        {
+          "continuation": "名词 + のとおりに",
+          "examples": [
+            {
+              "jaHtml": "<ruby>説明書<rt>せつめいしょ</rt></ruby>のとおりに<ruby>組<rt>く</rt></ruby>み<ruby>立<rt>た</rt></ruby>てた。",
+              "zh": "按说明书组装好了。"
+            }
+          ]
+        },
+        {
+          "continuation": "动词た形 + とおりに",
+          "examples": [
+            {
+              "jaHtml": "<ruby>思<rt>おも</rt></ruby>ったとおりの<ruby>結果<rt>けっか</rt></ruby>だった。",
+              "zh": "结果和预想的一样。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "level": "N3",
+      "pattern": "～ところだ（時のところ）",
+      "meaning": "即将……；正在……；刚……",
+      "usages": [
+        {
+          "continuation": "动词辞书形 + ところだ（即将）",
+          "examples": [
+            {
+              "jaHtml": "いまから<ruby>出<rt>で</rt></ruby>かけるところだ。",
+              "zh": "正要出门。"
+            }
+          ]
+        },
+        {
+          "continuation": "动词ている形 + ところだ（正在进行）",
+          "examples": [
+            {
+              "jaHtml": "いま、<ruby>昼<rt>ひる</rt></ruby>ご<ruby>飯<rt>はん</rt></ruby>を<ruby>食<rt>た</rt></ruby>べているところだ。",
+              "zh": "正在吃午饭。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "level": "N3",
+      "pattern": "～ば／～たら／～なら（条件）",
+      "meaning": "如果……；……的话",
+      "usages": [
+        {
+          "continuation": "动词假定形（ば）+ …",
+          "examples": [
+            {
+              "jaHtml": "<ruby>時間<rt>じかん</rt></ruby>があれば、<ruby>手伝<rt>てつだ</rt></ruby>うよ。",
+              "zh": "如果有时间我就帮你。"
+            }
+          ]
+        },
+        {
+          "continuation": "动词／イ形容词过去（た）+ ら…",
+          "examples": [
+            {
+              "jaHtml": "<ruby>春<rt>はる</rt></ruby>になったら、<ruby>花見<rt>はなみ</rt></ruby>に<ruby>行<rt>い</rt></ruby>きましょう。",
+              "zh": "到了春天的话，去看樱花吧。"
+            }
+          ]
+        },
+        {
+          "continuation": "名词／动词基本形 + なら…",
+          "examples": [
+            {
+              "jaHtml": "<ruby>東京<rt>とうきょう</rt></ruby>に<ruby>行<rt>い</rt></ruby>くなら、<ruby>夏<rt>なつ</rt></ruby>がおすすめだ。",
+              "zh": "要去东京的话，推荐夏天。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "level": "N3",
+      "pattern": "～のに",
+      "meaning": "明明……却……（遗憾、不满）",
+      "usages": [
+        {
+          "continuation": "动词た形 + のに",
+          "examples": [
+            {
+              "jaHtml": "こんなに<ruby>勉強<rt>べんきょう</rt></ruby>したのに、<ruby>落<rt>お</rt></ruby>ちた。",
+              "zh": "明明学了这么多，还是没考上。"
+            },
+            {
+              "jaHtml": "<ruby>約束<rt>やくそく</rt></ruby>したのに、<ruby>来<rt>こ</rt></ruby>なかった。",
+              "zh": "明明约好了，却没来。"
+            }
+          ]
+        },
+        {
+          "continuation": "动词辞书形／イ形容词基本形 + のに",
+          "examples": [
+            {
+              "jaHtml": "<ruby>行<rt>い</rt></ruby>くのに、<ruby>地図<rt>ちず</rt></ruby>を<ruby>持<rt>も</rt></ruby>って<ruby>来<rt>こ</rt></ruby>なかった。",
+              "zh": "明明要去，却没带地图来。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "level": "N2",
+      "pattern": "～わけではない",
+      "meaning": "并非……；不一定……",
+      "usages": [
+        {
+          "continuation": "用言普通形（常体）+ わけではない",
+          "examples": [
+            {
+              "jaHtml": "<ruby>嫌<rt>きら</rt></ruby>いなわけではないが、<ruby>今<rt>いま</rt></ruby>は<ruby>忙<rt>いそが</rt></ruby>しい。",
+              "zh": "并不是讨厌，只是现在很忙。"
+            },
+            {
+              "jaHtml": "すべてが<ruby>悪<rt>わる</rt></ruby>いわけではない。",
+              "zh": "并不是一切都坏。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "level": "N2",
+      "pattern": "～わけがない",
+      "meaning": "不可能……；不会……",
+      "usages": [
+        {
+          "continuation": "用言普通形 + わけがない",
+          "examples": [
+            {
+              "jaHtml": "そんな<ruby>難<rt>むずか</rt></ruby>しい<ruby>問題<rt>もんだい</rt></ruby>が<ruby>一瞬<rt>いっしゅん</rt></ruby>で<ruby>解<rt>と</rt></ruby>けるわけがない。",
+              "zh": "那么难的题不可能一瞬间就解出来。"
+            },
+            {
+              "jaHtml": "<ruby>彼<rt>かれ</rt></ruby>が<ruby>嘘<rt>うそ</rt></ruby>をつくわけがない。",
+              "zh": "他不可能说谎。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "level": "N2",
+      "pattern": "～わけにはいかない",
+      "meaning": "不能……；于情于理不能……",
+      "usages": [
+        {
+          "continuation": "动词辞书形 + わけにはいかない",
+          "examples": [
+            {
+              "jaHtml": "<ruby>約束<rt>やくそく</rt></ruby>したから、<ruby>逃<rt>に</rt></ruby>げるわけにはいかない。",
+              "zh": "既然约好了，就不能逃避。"
+            },
+            {
+              "jaHtml": "<ruby>家族<rt>かぞく</rt></ruby>を<ruby>見捨<rt>みす</rt></ruby>てるわけにはいかない。",
+              "zh": "不能抛弃家人。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "level": "N2",
+      "pattern": "～ないことはない",
+      "meaning": "也不是不……；并非没有可能……",
+      "usages": [
+        {
+          "continuation": "动词可能形的ない形 + ことはない",
+          "examples": [
+            {
+              "jaHtml": "<ruby>理解<rt>りかい</rt></ruby>できないことはないが、<ruby>時間<rt>じかん</rt></ruby>がかかる。",
+              "zh": "也不是不能理解，只是需要时间。"
+            }
+          ]
+        },
+        {
+          "continuation": "动词ない形 + ことはない",
+          "examples": [
+            {
+              "jaHtml": "<ruby>一人<rt>ひとり</rt></ruby>で<ruby>行<rt>い</rt></ruby>けないことはない。",
+              "zh": "一个人去也不是不行。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "level": "N2",
+      "pattern": "～ざるを得ない",
+      "meaning": "不得不……；只能……",
+      "usages": [
+        {
+          "continuation": "サ变动词「する」未然形「せ」+ ざるを得ない",
+          "examples": [
+            {
+              "jaHtml": "<ruby>上司<rt>じょうし</rt></ruby>の<ruby>命令<rt>めいれい</rt></ruby>なので、<ruby>報告<rt>ほうこく</rt></ruby>せざるを得ない。",
+              "zh": "因为是上司的命令，不得不（向上）报告。"
+            }
+          ]
+        },
+        {
+          "continuation": "一般动词未然形 + ざるを得ない",
+          "examples": [
+            {
+              "jaHtml": "<ruby>体調<rt>たいちょう</rt></ruby>が<ruby>悪<rt>わる</rt></ruby>いので、<ruby>休<rt>やす</rt></ruby>まざるを得なかった。",
+              "zh": "因为身体不好，不得不休息。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "level": "N2",
+      "pattern": "～得る／～得ない",
+      "meaning": "能……／不能……（可能性）",
+      "usages": [
+        {
+          "continuation": "动词ます形去掉「ます」+ 得る／得ない",
+          "examples": [
+            {
+              "jaHtml": "この<ruby>説<rt>せつ</rt></ruby>は<ruby>信<rt>しん</rt></ruby>じ<ruby>得<rt>え</rt></ruby>る。",
+              "zh": "这种说法可信。"
+            }
+          ]
+        },
+        {
+          "continuation": "ある／あり + 得ない（固定）",
+          "examples": [
+            {
+              "jaHtml": "そんなミスはあり<ruby>得<rt>え</rt></ruby>ない。",
+              "zh": "不可能出现那种失误。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "level": "N2",
+      "pattern": "～をめぐって",
+      "meaning": "围绕……；就……",
+      "usages": [
+        {
+          "continuation": "名词 + をめぐって",
+          "examples": [
+            {
+              "jaHtml": "<ruby>環境<rt>かんきょう</rt></ruby><ruby>問題<rt>もんだい</rt></ruby>をめぐって<ruby>議論<rt>ぎろん</rt></ruby>が<ruby>続<rt>つづ</rt></ruby>いている。",
+              "zh": "围绕环境问题的讨论仍在继续。"
+            },
+            {
+              "jaHtml": "<ruby>遺産<rt>いさん</rt></ruby>をめぐって<ruby>兄弟<rt>きょうだい</rt></ruby>が<ruby>争<rt>あらそ</rt></ruby>った。",
+              "zh": "兄弟姐妹为遗产起了争执。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "level": "N2",
+      "pattern": "～に際して",
+      "meaning": "在……之际；当……的时候（正式）",
+      "usages": [
+        {
+          "continuation": "名词 + に際して",
+          "examples": [
+            {
+              "jaHtml": "<ruby>出発<rt>しゅっぱつ</rt></ruby>に<ruby>際<rt>さい</rt></ruby>して、<ruby>注意事項<rt>ちゅういじこう</rt></ruby>をお<ruby>伝<rt>つた</rt></ruby>えします。",
+              "zh": "在出发之际，向大家说明注意事项。"
+            },
+            {
+              "jaHtml": "<ruby>就任<rt>しゅうにん</rt></ruby>に<ruby>際<rt>さい</rt></ruby>して<ruby>挨拶<rt>あいさつ</rt></ruby>をした。",
+              "zh": "在就任之际致了辞。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "level": "N2",
+      "pattern": "～をきっかけに（して）",
+      "meaning": "以……为契机；自从……之后",
+      "usages": [
+        {
+          "continuation": "名词 + をきっかけに（して）",
+          "examples": [
+            {
+              "jaHtml": "その<ruby>本<rt>ほん</rt></ruby>をきっかけに、<ruby>日本語<rt>にほんご</rt></ruby>を<ruby>勉強<rt>べんきょう</rt></ruby>し<ruby>始<rt>はじ</rt></ruby>めた。",
+              "zh": "以那本书为契机，我开始学日语。"
+            },
+            {
+              "jaHtml": "<ruby>転職<rt>てんしょく</rt></ruby>をきっかけに<ruby>地方<rt>ちほう</rt></ruby>へ<ruby>引<rt>ひ</rt></ruby>っ<ruby>越<rt>こ</rt></ruby>した。",
+              "zh": "以换工作为契机搬到了地方城市。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "level": "N2",
+      "pattern": "～に伴って",
+      "meaning": "随着……；伴随……",
+      "usages": [
+        {
+          "continuation": "名词 + に伴って",
+          "examples": [
+            {
+              "jaHtml": "<ruby>経済<rt>けいざい</rt></ruby>の<ruby>発展<rt>はってん</rt></ruby>に<ruby>伴<rt>ともな</rt></ruby>って、<ruby>生活<rt>せいかつ</rt></ruby>が<ruby>豊<rt>ゆた</rt></ruby>かになった。",
+              "zh": "随着经济发展，生活变富裕了。"
+            }
+          ]
+        },
+        {
+          "continuation": "名词 + の + 名词 + に伴い",
+          "examples": [
+            {
+              "jaHtml": "<ruby>年齢<rt>ねんれい</rt></ruby>の<ruby>増加<rt>ぞうか</rt></ruby>に<ruby>伴<rt>ともな</rt></ruby>い、<ruby>医療費<rt>いりょうひ</rt></ruby>も<ruby>増<rt>ふ</rt></ruby>えている。",
+              "zh": "随着年龄增长，医疗费也在增加。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "level": "N2",
+      "pattern": "～かねない",
+      "meaning": "说不定会……；有可能……（消极）",
+      "usages": [
+        {
+          "continuation": "动词ます形去掉「ます」+ かねない",
+          "examples": [
+            {
+              "jaHtml": "このままでは、<ruby>倒産<rt>とうさん</rt></ruby>しかねない。",
+              "zh": "再这样下去说不定会破产。"
+            },
+            {
+              "jaHtml": "<ruby>軽<rt>かる</rt></ruby>く<ruby>見<rt>み</rt></ruby>ると、<ruby>大事故<rt>だいじこ</rt></ruby>に<ruby>繋<rt>つな</rt></ruby>がりかねない。",
+              "zh": "掉以轻心的话，有可能酿成大事故。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "level": "N2",
+      "pattern": "～かねる",
+      "meaning": "难以……；不便……（委婉拒绝，书面）",
+      "usages": [
+        {
+          "continuation": "动词ます形去掉「ます」+ かねる",
+          "examples": [
+            {
+              "jaHtml": "<ruby>詳<rt>くわ</rt></ruby>しいお<ruby>答<rt>こた</rt></ruby>えはしかねます。",
+              "zh": "恕难详细回答。"
+            },
+            {
+              "jaHtml": "そのご<ruby>要望<rt>ようぼう</rt></ruby>には<ruby>応<rt>こた</rt></ruby>えかねます。",
+              "zh": "恕难满足那项要求。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "level": "N2",
+      "pattern": "～を問わず",
+      "meaning": "不论……；无论……",
+      "usages": [
+        {
+          "continuation": "名词 + を問わず",
+          "examples": [
+            {
+              "jaHtml": "<ruby>年齢<rt>ねんれい</rt></ruby>を<ruby>問<rt>と</rt></ruby>わず<ruby>参加<rt>さんか</rt></ruby>できます。",
+              "zh": "不论年龄均可参加。"
+            },
+            {
+              "jaHtml": "<ruby>晴雨<rt>せいう</rt></ruby>を<ruby>問<rt>と</rt></ruby>わず<ruby>開催<rt>かいさい</rt></ruby>します。",
+              "zh": "晴雨无阻照常举行。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "level": "N2",
+      "pattern": "～に応じて",
+      "meaning": "根据……；响应……",
+      "usages": [
+        {
+          "continuation": "名词 + に応じて",
+          "examples": [
+            {
+              "jaHtml": "<ruby>天候<rt>てんこう</rt></ruby>に<ruby>応<rt>おう</rt></ruby>じてスケジュールを<ruby>変<rt>か</rt></ruby>える。",
+              "zh": "根据天气改变日程。"
+            },
+            {
+              "jaHtml": "<ruby>希望<rt>きぼう</rt></ruby>に<ruby>応<rt>おう</rt></ruby>じて<ruby>席<rt>せき</rt></ruby>を<ruby>割<rt>わ</rt></ruby>り<ruby>当<rt>あ</rt></ruby>てる。",
+              "zh": "按希望分配座位。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 35,
+      "level": "N2",
+      "pattern": "～に基づいて",
+      "meaning": "根据……；基于……",
+      "usages": [
+        {
+          "continuation": "名词 + に基づいて",
+          "examples": [
+            {
+              "jaHtml": "<ruby>事実<rt>じじつ</rt></ruby>に<ruby>基<rt>もと</rt></ruby>づいて<ruby>報道<rt>ほうどう</rt></ruby>する。",
+              "zh": "根据事实进行报道。"
+            },
+            {
+              "jaHtml": "このデータに<ruby>基<rt>もと</rt></ruby>づいて<ruby>分析<rt>ぶんせき</rt></ruby>した。",
+              "zh": "基于这些数据做了分析。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 36,
+      "level": "N2",
+      "pattern": "～をもとに（して）",
+      "meaning": "以……为基础；根据……",
+      "usages": [
+        {
+          "continuation": "名词 + をもとに（して）",
+          "examples": [
+            {
+              "jaHtml": "<ruby>小説<rt>しょうせつ</rt></ruby>をもとに<ruby>映画<rt>えいが</rt></ruby>が<ruby>作<rt>つく</rt></ruby>られた。",
+              "zh": "根据小说拍了电影。"
+            },
+            {
+              "jaHtml": "<ruby>意見<rt>いけん</rt></ruby>をもとに<ruby>計画<rt>けいかく</rt></ruby>を<ruby>修正<rt>しゅうせい</rt></ruby>した。",
+              "zh": "根据意见修改了计划。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 37,
+      "level": "N3",
+      "pattern": "～くらい／～ぐらい（軽視・程度）",
+      "meaning": "不过……而已；大约……",
+      "usages": [
+        {
+          "continuation": "用言普通形／名词 + くらい／ぐらい（轻视、程度之低）",
+          "examples": [
+            {
+              "jaHtml": "そんなこと、<ruby>知<rt>し</rt></ruby>らないくらいだ。",
+              "zh": "那种事我根本不知道（无所谓）。"
+            }
+          ]
+        },
+        {
+          "continuation": "数量词 + くらい／ぐらい + で（大约）",
+          "examples": [
+            {
+              "jaHtml": "<ruby>十<rt>じゅう</rt></ruby><ruby>分<rt>ぷん</rt></ruby>ぐらいで<ruby>着<rt>つ</rt></ruby>く。",
+              "zh": "大约十分钟能到。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 38,
+      "level": "N3",
+      "pattern": "～くせに",
+      "meaning": "明明……却……（指责别人的矛盾）",
+      "usages": [
+        {
+          "continuation": "动词・イ形容词常体 + くせに",
+          "examples": [
+            {
+              "jaHtml": "<ruby>知<rt>し</rt></ruby>っているくせに、<ruby>教<rt>おし</rt></ruby>えてくれなかった。",
+              "zh": "明明知道却不告诉我。"
+            }
+          ]
+        },
+        {
+          "continuation": "名词 + のくせに",
+          "examples": [
+            {
+              "jaHtml": "<ruby>子供<rt>こども</rt></ruby>のくせに<ruby>生意気<rt>なまいき</rt></ruby>だ。",
+              "zh": "明明是个小孩却很狂妄。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 39,
+      "level": "N3",
+      "pattern": "～ものだ（感慨）",
+      "meaning": "真……啊；本来就会……（感叹、常理）",
+      "usages": [
+        {
+          "continuation": "用言普通形 + ものだ（感慨）",
+          "examples": [
+            {
+              "jaHtml": "<ruby>時間<rt>じかん</rt></ruby>というのは<ruby>経<rt>た</rt></ruby>つのが<ruby>早<rt>はや</rt></ruby>いものだ。",
+              "zh": "时间过得真快啊。"
+            },
+            {
+              "jaHtml": "<ruby>若<rt>わか</rt></ruby>い<ruby>頃<rt>ころ</rt></ruby>はよく<ruby>遊<rt>あそ</rt></ruby>んだものだ。",
+              "zh": "年轻时真常玩啊。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "level": "N2",
+      "pattern": "～ものだ（当然・一般）",
+      "meaning": "本来就该……；自然会……",
+      "usages": [
+        {
+          "continuation": "用言普通形 + ものだ（常理、必然）",
+          "examples": [
+            {
+              "jaHtml": "<ruby>人<rt>ひと</rt></ruby>はいつか<ruby>死<rt>し</rt></ruby>ぬものだ。",
+              "zh": "人终有一死。"
+            }
+          ]
+        },
+        {
+          "continuation": "名词谓语句（常体）+ ものだ（评价）",
+          "examples": [
+            {
+              "jaHtml": "<ruby>子供<rt>こども</rt></ruby>は<ruby>元気<rt>げんき</rt></ruby>なものだ。",
+              "zh": "小孩子本来就是有活力的。"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
