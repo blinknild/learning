@@ -56,4 +56,9 @@ defineProps<{
     background: rgba(116, 198, 157, 0.14);
   }
 }
+
+html.dark .verified-badge {
+  color: #95d5b2;
+  background: rgba(116, 198, 157, 0.14);
+}
 </style>

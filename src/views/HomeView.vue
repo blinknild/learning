@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
+import { useNightMode } from '../composables/useNightMode'
 import GrammarVerifiedBadge from '../components/GrammarVerifiedBadge.vue'
 import raw from '../data/grammar-n2n3.json'
 import type { GrammarData, GrammarItem } from '../types/grammar'
@@ -23,6 +24,8 @@ const dateLabel = computed(() => {
 })
 
 const totalCount = data.items.length
+
+const { nightMode } = useNightMode()
 </script>
 
 <template>
@@ -34,6 +37,14 @@ const totalCount = data.items.length
         <span class="sep">·</span>
         <span>今日语法编号规则：<code>id % 30 === {{ dayOfMonth }} % 30</code>（即 {{ mod30 }}）</span>
       </p>
+      <div class="night-row">
+        <span id="night-mode-label" class="night-row__label">夜间模式</span>
+        <el-switch
+          v-model="nightMode"
+          size="small"
+          aria-labelledby="night-mode-label"
+        />
+      </div>
       <nav class="actions">
         <RouterLink class="btn" :to="{ name: 'grammar-list' }">查看全部语法条目（{{ totalCount }}）</RouterLink>
       </nav>
@@ -93,10 +104,24 @@ h1 {
 }
 
 .meta {
-  margin: 0 0 1rem;
+  margin: 0 0 0.75rem;
   font-size: 0.9rem;
   line-height: 1.5;
   opacity: 0.88;
+}
+
+.night-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0 0 1rem;
+  font-size: 0.88rem;
+  opacity: 0.92;
+}
+
+.night-row__label {
+  user-select: none;
 }
 
 .meta code {
@@ -293,5 +318,33 @@ h1 {
   .tag-pill {
     background: rgba(200, 205, 212, 0.15);
   }
+}
+
+html.dark .meta code {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+html.dark .btn {
+  background: rgba(40, 42, 48, 0.75);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+html.dark .btn:hover {
+  background: rgba(50, 52, 58, 0.95);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+html.dark .card {
+  background: rgba(28, 30, 34, 0.85);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+}
+
+html.dark .usage-block + .usage-block {
+  border-top-color: rgba(255, 255, 255, 0.12);
+}
+
+html.dark .tag-pill {
+  background: rgba(200, 205, 212, 0.15);
 }
 </style>

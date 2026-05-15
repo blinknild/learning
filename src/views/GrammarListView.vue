@@ -528,4 +528,55 @@ const hasActiveFilter = computed(
     background: rgba(200, 205, 212, 0.15);
   }
 }
+
+html.dark .sub code {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+html.dark .btn-back {
+  background: rgba(40, 42, 48, 0.75);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+html.dark .btn-back:hover {
+  background: rgba(50, 52, 58, 0.95);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+html.dark .search-ep__reset:not(:disabled) {
+  color: rgba(255, 255, 255, 0.88);
+  background-color: rgba(40, 42, 48, 0.75);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+}
+
+html.dark .search-ep__reset:hover:not(:disabled) {
+  color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.22) inset;
+}
+
+html.dark .search-ep__reset:focus,
+html.dark .search-ep__reset:focus-visible,
+html.dark .search-ep__reset:active:not(:disabled) {
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+}
+
+html.dark .search-ep__reset:disabled {
+  color: rgba(255, 255, 255, 0.35);
+  background-color: rgba(32, 34, 38, 0.65);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+}
+
+html.dark .card {
+  background: rgba(28, 30, 34, 0.85);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+}
+
+html.dark .usage-block + .usage-block {
+  border-top-color: rgba(255, 255, 255, 0.12);
+}
+
+html.dark .tag-pill {
+  background: rgba(200, 205, 212, 0.15);
+}
 </style>

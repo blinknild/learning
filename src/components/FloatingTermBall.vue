@@ -1166,4 +1166,68 @@ onBeforeUnmount(() => {
     outline-color: rgba(149, 213, 178, 0.65);
   }
 }
+
+html.dark .ftb-backdrop {
+  background: rgba(0, 0, 0, 0.35);
+}
+
+html.dark .ftb-panel {
+  background: rgba(32, 34, 38, 0.96);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+}
+
+html.dark .ftb-panel__title {
+  color: #95d5b2;
+}
+
+html.dark .ftb-panel__lead {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+html.dark .ftb-sec__h {
+  color: #95d5b2;
+}
+
+html.dark .ftb-table th,
+html.dark .ftb-table td {
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+html.dark .ftb-table th {
+  background: rgba(149, 213, 178, 0.12);
+  color: #b8e0c8;
+}
+
+html.dark .ftb-card {
+  background: rgba(149, 213, 178, 0.08);
+  border-color: rgba(149, 213, 178, 0.15);
+}
+
+html.dark .ftb-animal-speech {
+  color: #d8f3dc;
+  background: rgba(32, 34, 38, 0.96);
+  border-color: rgba(149, 213, 178, 0.22);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+}
+
+html.dark .ftb-animal-speech::after {
+  border-top-color: rgba(32, 34, 38, 0.96);
+}
+
+html.dark .ftb-card__t {
+  color: #b8e0c8;
+}
+
+html.dark .ftb-card__p {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+html.dark .ftb-card__ex {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+html.dark .ftb-fab:focus-visible {
+  outline-color: rgba(149, 213, 178, 0.65);
+}
 </style>

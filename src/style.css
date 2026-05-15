@@ -17,3 +17,13 @@ body {
     background: #121418;
   }
 }
+
+/* 首页开关：在浅色系统下强制夜间（与 prefers-color-scheme: dark 一致） */
+html.dark {
+  color-scheme: dark;
+}
+
+html.dark body {
+  color: #e8e6e3;
+  background: #121418;
+}
