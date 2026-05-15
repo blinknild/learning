@@ -18,7 +18,20 @@ const ftbRootVars = computed(() => ({
   '--ftb-speech-dur-reduced': `${cfg.speech.reducedMotionShowMs}ms`,
   '--ftb-rocket-launch': `${cfg.fab.rocketLaunchMs}ms`,
   '--ftb-rocket-land': `${cfg.fab.rocketLandMs}ms`,
+  '--ftb-speech-narrow-max-w': `${cfg.speech.bubbleMaxWidthNarrowRem}rem`,
+  '--ftb-speech-wide-max-w': `${cfg.speech.bubbleMaxWidthWideRem}rem`,
 }))
+
+const speechIsWide = (text: string) => [...text].length > cfg.speech.wideBubbleMinChars
+
+/** CSS 用：同时提供正常/减动画两套时长，由 @media 选用 */
+function speechBubbleCssVars(text: string) {
+  const wide = speechIsWide(text)
+  return {
+    '--ftb-this-speech-dur': `${wide ? cfg.speech.showMsLong : cfg.speech.showMs}ms`,
+    '--ftb-this-speech-dur-reduced': `${wide ? cfg.speech.reducedMotionShowMsLong : cfg.speech.reducedMotionShowMs}ms`,
+  }
+}
 
 /** 按当月「日期」在配置的前 N 张图里轮换（与 animal_01…顺序一致） */
 const dailyAnimalSrc = computed(() => {
@@ -83,12 +96,13 @@ function tryShowAnimalSpeech() {
   if (!canShowAnimalSpeech()) return
   if (Math.random() <= cfg.speech.showThreshold) return
 
-  animalSpeech.value = { id: ++speechSeq, text: pickAnimalLine() }
+  const text = pickAnimalLine()
+  animalSpeech.value = { id: ++speechSeq, text }
   clearSpeechShowTimer()
   speechClearTimer = setTimeout(() => {
     animalSpeech.value = null
     speechClearTimer = null
-  }, cfg.speech.showMs)
+  }, speechShowMsFor(text))
 }
 
 function onAnimalSpeechEnd(e: AnimationEvent) {
@@ -251,6 +265,14 @@ function scrollPageTop() {
 
 function prefersReducedMotion() {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+}
+
+function speechShowMsFor(text: string) {
+  const wide = speechIsWide(text)
+  if (prefersReducedMotion()) {
+    return wide ? cfg.speech.reducedMotionShowMsLong : cfg.speech.reducedMotionShowMs
+  }
+  return wide ? cfg.speech.showMsLong : cfg.speech.showMs
 }
 
 function launchRocketToTop() {
@@ -472,17 +494,19 @@ onBeforeUnmount(() => {
           <span class="ftb-rocket-flame ftb-rocket-flame--r" />
           <span class="ftb-rocket-trail" />
         </div>
+        <p
+          v-if="animalSpeech"
+          :key="animalSpeech.id"
+          class="ftb-animal-speech"
+          :style="speechBubbleCssVars(animalSpeech.text)"
+          :class="{ 'ftb-animal-speech--wide': speechIsWide(animalSpeech.text) }"
+          role="status"
+          aria-live="polite"
+          @animationend="onAnimalSpeechEnd"
+        >
+          {{ animalSpeech.text }}
+        </p>
         <div class="ftb-animal-wrap">
-          <p
-            v-if="animalSpeech"
-            :key="animalSpeech.id"
-            class="ftb-animal-speech"
-            role="status"
-            aria-live="polite"
-            @animationend="onAnimalSpeechEnd"
-          >
-            {{ animalSpeech.text }}
-          </p>
           <img
             class="ftb-animal"
             :src="dailyAnimalSrc"
@@ -698,11 +722,13 @@ onBeforeUnmount(() => {
 
 .ftb-animal-speech {
   position: absolute;
+  /* 相对 .ftb-fab-wrap：不撑宽容器，悬浮球保持居中；向左展开 */
   right: 0;
-  bottom: calc(100% + 0.3rem);
-  z-index: 2;
-  max-width: 10.5rem;
+  bottom: calc(3rem + 2rem - 0.72rem + 0.3rem);
+  z-index: 4;
+  box-sizing: border-box;
   margin: 0;
+  width: min(var(--ftb-speech-narrow-max-w, 10.5rem), calc(100vw - 2.25rem));
   padding: 0.42rem 0.58rem;
   font-size: 0.72rem;
   line-height: 1.42;
@@ -713,14 +739,21 @@ onBeforeUnmount(() => {
   border-radius: 10px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   pointer-events: none;
-  animation: ftb-speech-life var(--ftb-speech-dur, 4200ms) ease forwards;
+  animation: ftb-speech-life
+    var(--ftb-this-speech-dur, var(--ftb-speech-dur, 4200ms)) ease forwards;
+}
+
+.ftb-animal-speech--wide {
+  width: min(var(--ftb-speech-wide-max-w, 16rem), calc(100vw - 2.25rem));
 }
 
 .ftb-animal-speech::after {
   content: '';
   position: absolute;
-  right: 1rem;
+  right: 1.35rem;
   bottom: -5px;
+  left: auto;
+  margin-left: 0;
   border: 5px solid transparent;
   border-top-color: rgba(255, 255, 255, 0.97);
   filter: drop-shadow(0 1px 0 rgba(45, 106, 79, 0.12));
@@ -1053,7 +1086,8 @@ onBeforeUnmount(() => {
   }
 
   .ftb-animal-speech {
-    animation: ftb-speech-life-reduced var(--ftb-speech-dur-reduced, 3000ms) ease forwards;
+    animation: ftb-speech-life-reduced
+      var(--ftb-this-speech-dur-reduced, var(--ftb-speech-dur-reduced, 3500ms)) ease forwards;
   }
 }
 
