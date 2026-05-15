@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import FloatingTermBall from './components/FloatingTermBall.vue'
 import { RouterView } from 'vue-router'
 </script>
 
 <template>
   <RouterView />
+  <FloatingTermBall />
 </template>
 
 <style>
