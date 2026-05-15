@@ -145,7 +145,14 @@ const SUMMARY_ROWS: { term: string; mean: string; ex: string }[] = [
 ]
 
 const LONG_MS = 550
+const ROCKET_LAUNCH_MS = 780
+const ROCKET_LAND_MS = 480
+
+type RocketPhase = 'idle' | 'launching' | 'landing'
+const rocketPhase = ref<RocketPhase>('idle')
+
 let pressTimer: ReturnType<typeof setTimeout> | null = null
+let rocketTimer: ReturnType<typeof setTimeout> | null = null
 /** 长按后浏览器仍会派发 click，用此标志吞掉下一次 click，避免误开关气泡 */
 let suppressNextClick = false
 
@@ -156,8 +163,39 @@ function clearPressTimer() {
   }
 }
 
+function clearRocketTimer() {
+  if (rocketTimer != null) {
+    clearTimeout(rocketTimer)
+    rocketTimer = null
+  }
+}
+
 function scrollPageTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' })
+}
+
+function prefersReducedMotion() {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+}
+
+function launchRocketToTop() {
+  if (rocketPhase.value !== 'idle') return
+
+  bubbleOpen.value = false
+  suppressNextClick = true
+  scrollPageTop()
+
+  if (prefersReducedMotion()) return
+
+  rocketPhase.value = 'launching'
+  clearRocketTimer()
+  rocketTimer = setTimeout(() => {
+    rocketPhase.value = 'landing'
+    rocketTimer = setTimeout(() => {
+      rocketPhase.value = 'idle'
+      rocketTimer = null
+    }, ROCKET_LAND_MS)
+  }, ROCKET_LAUNCH_MS)
 }
 
 function onFabPointerDown(e: PointerEvent) {
@@ -175,9 +213,7 @@ function onFabPointerDown(e: PointerEvent) {
   clearPressTimer()
   pressTimer = setTimeout(() => {
     pressTimer = null
-    suppressNextClick = true
-    bubbleOpen.value = false
-    scrollPageTop()
+    launchRocketToTop()
     try {
       navigator.vibrate?.(12)
     } catch {
@@ -261,6 +297,7 @@ watch(bubbleOpen, (open) => {
 
 onBeforeUnmount(() => {
   clearPressTimer()
+  clearRocketTimer()
   setBubbleScrollLock(false)
 })
 </script>
@@ -333,8 +370,22 @@ onBeforeUnmount(() => {
 
       <div
         class="ftb-fab-wrap"
-        :class="{ 'ftb-fab-wrap--open': bubbleOpen }"
+        :class="{
+          'ftb-fab-wrap--open': bubbleOpen && rocketPhase === 'idle',
+          'ftb-fab-wrap--launching': rocketPhase === 'launching',
+          'ftb-fab-wrap--landing': rocketPhase === 'landing',
+        }"
       >
+        <div
+          v-show="rocketPhase === 'launching'"
+          class="ftb-rocket-fx"
+          aria-hidden="true"
+        >
+          <span class="ftb-rocket-flame ftb-rocket-flame--l" />
+          <span class="ftb-rocket-flame ftb-rocket-flame--c" />
+          <span class="ftb-rocket-flame ftb-rocket-flame--r" />
+          <span class="ftb-rocket-trail" />
+        </div>
         <img
           class="ftb-animal"
           :src="dailyAnimalSrc"
@@ -578,32 +629,219 @@ onBeforeUnmount(() => {
   transition: box-shadow 0.2s ease;
 }
 
-.ftb-fab-wrap:hover {
+.ftb-fab-wrap--launching,
+.ftb-fab-wrap--landing {
+  pointer-events: none;
+  transition: none;
+}
+
+.ftb-fab-wrap--launching {
+  animation: ftb-rocket-launch 0.78s cubic-bezier(0.33, 0.86, 0.42, 1) forwards;
+}
+
+.ftb-fab-wrap--launching .ftb-animal {
+  transition: none;
+  animation: ftb-animal-launch 0.78s cubic-bezier(0.33, 0.86, 0.42, 1) forwards;
+}
+
+.ftb-fab-wrap--launching .ftb-fab {
+  box-shadow:
+    0 4px 14px rgba(27, 67, 50, 0.45),
+    0 0 18px rgba(255, 193, 7, 0.45);
+}
+
+.ftb-fab-wrap--landing {
+  opacity: 0;
+  animation: ftb-rocket-land 0.48s cubic-bezier(0.34, 1.35, 0.64, 1) forwards;
+}
+
+.ftb-fab-wrap--landing .ftb-animal {
+  transition: none;
+}
+
+@keyframes ftb-rocket-launch {
+  0% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+  10% {
+    transform: scale(0.88) translateY(5px);
+  }
+  18% {
+    transform: scale(1.1) translateY(-6px);
+  }
+  100% {
+    transform: scale(0.5) translateY(calc(-100vh + 6.5rem));
+    opacity: 0;
+    filter: blur(0.5px);
+  }
+}
+
+@keyframes ftb-animal-launch {
+  0%,
+  10% {
+    transform: translateY(0);
+  }
+  18% {
+    transform: translateY(-8px) rotate(-5deg);
+  }
+  100% {
+    transform: translateY(-10px) rotate(-10deg) scale(0.88);
+  }
+}
+
+@keyframes ftb-rocket-land {
+  0% {
+    transform: scale(0.35) translateY(-28px);
+    opacity: 0;
+  }
+  55% {
+    transform: scale(1.12) translateY(3px);
+    opacity: 1;
+  }
+  78% {
+    transform: scale(0.94) translateY(-2px);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.ftb-rocket-fx {
+  position: absolute;
+  bottom: 0.1rem;
+  left: 50%;
+  width: 2.6rem;
+  height: 3.6rem;
+  transform: translateX(-50%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.ftb-rocket-flame {
+  position: absolute;
+  bottom: 0;
+  border-radius: 50% 50% 42% 42%;
+  background: linear-gradient(to top, #ff5722 0%, #ffc107 50%, rgba(255, 235, 59, 0) 100%);
+  transform-origin: 50% 100%;
+  animation: ftb-flame-pulse 0.09s ease-in-out infinite alternate;
+}
+
+.ftb-rocket-flame--c {
+  left: 50%;
+  width: 0.7rem;
+  height: 1.65rem;
+  margin-left: -0.35rem;
+}
+
+.ftb-rocket-flame--l,
+.ftb-rocket-flame--r {
+  width: 0.48rem;
+  height: 1.15rem;
+  opacity: 0.88;
+}
+
+.ftb-rocket-flame--l {
+  left: 0.5rem;
+  transform: rotate(-14deg);
+}
+
+.ftb-rocket-flame--r {
+  right: 0.5rem;
+  transform: rotate(14deg);
+}
+
+.ftb-rocket-trail {
+  position: absolute;
+  bottom: -0.15rem;
+  left: 50%;
+  width: 3px;
+  height: 2rem;
+  margin-left: -1.5px;
+  border-radius: 999px;
+  background: linear-gradient(to bottom, rgba(255, 193, 7, 0.85), rgba(255, 87, 34, 0.15), transparent);
+  animation: ftb-trail-stretch 0.78s ease-in forwards;
+}
+
+@keyframes ftb-flame-pulse {
+  from {
+    transform: scaleY(0.9);
+    opacity: 0.88;
+  }
+  to {
+    transform: scaleY(1.14);
+    opacity: 1;
+  }
+}
+
+.ftb-rocket-flame--l {
+  animation-name: ftb-flame-pulse-l;
+}
+
+.ftb-rocket-flame--r {
+  animation-name: ftb-flame-pulse-r;
+}
+
+@keyframes ftb-flame-pulse-l {
+  from {
+    transform: rotate(-14deg) scaleY(0.9);
+  }
+  to {
+    transform: rotate(-14deg) scaleY(1.12);
+  }
+}
+
+@keyframes ftb-flame-pulse-r {
+  from {
+    transform: rotate(14deg) scaleY(0.9);
+  }
+  to {
+    transform: rotate(14deg) scaleY(1.12);
+  }
+}
+
+@keyframes ftb-trail-stretch {
+  0% {
+    height: 0.4rem;
+    opacity: 0;
+  }
+  15% {
+    height: 1.4rem;
+    opacity: 1;
+  }
+  100% {
+    height: 5rem;
+    opacity: 0.25;
+  }
+}
+
+.ftb-fab-wrap:not(.ftb-fab-wrap--launching):not(.ftb-fab-wrap--landing):hover {
   transform: scale(1.04);
 }
 
-.ftb-fab-wrap:hover .ftb-animal {
+.ftb-fab-wrap:not(.ftb-fab-wrap--launching):not(.ftb-fab-wrap--landing):hover .ftb-animal {
   margin-bottom: -0.8rem;
   transform: translateY(1px);
 }
 
-.ftb-fab-wrap:hover .ftb-fab {
+.ftb-fab-wrap:not(.ftb-fab-wrap--launching):not(.ftb-fab-wrap--landing):hover .ftb-fab {
   box-shadow: 0 6px 18px rgba(27, 67, 50, 0.5);
 }
 
-.ftb-fab-wrap:active {
+.ftb-fab-wrap:not(.ftb-fab-wrap--launching):not(.ftb-fab-wrap--landing):active {
   transform: scale(0.95);
   transition-duration: 0.1s;
 }
 
-.ftb-fab-wrap:active .ftb-animal {
+.ftb-fab-wrap:not(.ftb-fab-wrap--launching):not(.ftb-fab-wrap--landing):active .ftb-animal {
   margin-bottom: -0.88rem;
   transform: translateY(3px) scale(0.97);
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
   transition-duration: 0.1s;
 }
 
-.ftb-fab-wrap:active .ftb-fab {
+.ftb-fab-wrap:not(.ftb-fab-wrap--launching):not(.ftb-fab-wrap--landing):active .ftb-fab {
   box-shadow: 0 2px 8px rgba(27, 67, 50, 0.38);
   transition-duration: 0.1s;
 }
@@ -625,16 +863,16 @@ onBeforeUnmount(() => {
   outline: none;
 }
 
-.ftb-fab-wrap:has(.ftb-fab:focus-visible) {
+.ftb-fab-wrap:not(.ftb-fab-wrap--launching):not(.ftb-fab-wrap--landing):has(.ftb-fab:focus-visible) {
   transform: scale(1.04);
 }
 
-.ftb-fab-wrap:has(.ftb-fab:focus-visible) .ftb-animal {
+.ftb-fab-wrap:not(.ftb-fab-wrap--launching):not(.ftb-fab-wrap--landing):has(.ftb-fab:focus-visible) .ftb-animal {
   margin-bottom: -0.8rem;
   transform: translateY(1px);
 }
 
-.ftb-fab-wrap:has(.ftb-fab:focus-visible) .ftb-fab {
+.ftb-fab-wrap:not(.ftb-fab-wrap--launching):not(.ftb-fab-wrap--landing):has(.ftb-fab:focus-visible) .ftb-fab {
   box-shadow: 0 6px 18px rgba(27, 67, 50, 0.5);
 }
 
@@ -646,6 +884,20 @@ onBeforeUnmount(() => {
 .ftb-fab__icon {
   display: block;
   transform: translateY(1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ftb-fab-wrap--launching,
+  .ftb-fab-wrap--landing {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .ftb-fab-wrap--launching .ftb-animal {
+    animation: none !important;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
