@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, ref } from 'vue'
+import { computed, nextTick, onBeforeUnmount, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import raw from '../data/grammar-n2n3.json'
 import type { GrammarData } from '../types/grammar'
@@ -29,6 +29,42 @@ function onTagChange(val: string | undefined) {
 function onTagClear() {
   query.value = ''
 }
+
+/** 标签下拉展开时禁止背后页面滚动（移动端尤其明显） */
+const scrollLockSnapshot = {
+  htmlOverflow: '',
+  bodyOverflow: '',
+  htmlOverscroll: '',
+  bodyOverscroll: '',
+}
+
+function setTagSelectScrollLock(locked: boolean) {
+  const root = document.documentElement
+  const body = document.body
+  if (locked) {
+    scrollLockSnapshot.htmlOverflow = root.style.overflow
+    scrollLockSnapshot.bodyOverflow = body.style.overflow
+    scrollLockSnapshot.htmlOverscroll = root.style.overscrollBehavior
+    scrollLockSnapshot.bodyOverscroll = body.style.overscrollBehavior
+    root.style.overflow = 'hidden'
+    body.style.overflow = 'hidden'
+    root.style.overscrollBehavior = 'none'
+    body.style.overscrollBehavior = 'none'
+  } else {
+    root.style.overflow = scrollLockSnapshot.htmlOverflow
+    body.style.overflow = scrollLockSnapshot.bodyOverflow
+    root.style.overscrollBehavior = scrollLockSnapshot.htmlOverscroll
+    body.style.overscrollBehavior = scrollLockSnapshot.bodyOverscroll
+  }
+}
+
+function onTagSelectVisible(visible: boolean) {
+  setTagSelectScrollLock(visible)
+}
+
+onBeforeUnmount(() => {
+  setTagSelectScrollLock(false)
+})
 
 /** 标题／标签／释义关键词模糊匹配（英文忽略大小写） */
 const filteredItems = computed(() => {
@@ -69,6 +105,7 @@ const hasActiveFilter = computed(() => query.value.trim().length > 0)
             aria-label="选择标签填入搜索框"
             @change="onTagChange"
             @clear="onTagClear"
+            @visible-change="onTagSelectVisible"
           >
             <el-option
               v-for="t in tagOptions"
