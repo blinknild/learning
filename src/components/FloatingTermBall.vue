@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, ref, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { floatingTermBallConfig } from '../config/floatingTermBall'
 
 const animalModules = import.meta.glob<string>('../assets/images/animal_*.svg', {
   eager: true,
@@ -10,14 +11,92 @@ const animalUrls = Object.keys(animalModules)
   .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
   .map((key) => animalModules[key])
 
-/** 按当月日期对 15 取余选图：1 日→01，15 日→15，16 日→01 … */
+const cfg = floatingTermBallConfig
+
+const ftbRootVars = computed(() => ({
+  '--ftb-speech-dur': `${cfg.speech.showMs}ms`,
+  '--ftb-speech-dur-reduced': `${cfg.speech.reducedMotionShowMs}ms`,
+  '--ftb-rocket-launch': `${cfg.fab.rocketLaunchMs}ms`,
+  '--ftb-rocket-land': `${cfg.fab.rocketLandMs}ms`,
+}))
+
+/** 按当月「日期」在配置的前 N 张图里轮换（与 animal_01…顺序一致） */
 const dailyAnimalSrc = computed(() => {
+  const urls = animalUrls
+  if (urls.length === 0) return ''
+  const want = Math.max(1, cfg.animal.imageCount)
+  const n = Math.min(want, urls.length)
   const day = new Date().getDate()
-  const index = day % 15 || 15
-  return animalUrls[index - 1] ?? animalUrls[0]
+  const idx = (day - 1) % n
+  return urls[idx] ?? urls[0]
 })
 
 const bubbleOpen = ref(false)
+
+const animalSpeech = ref<{ id: number; text: string } | null>(null)
+let speechTickTimer: ReturnType<typeof setInterval> | null = null
+let speechClearTimer: ReturnType<typeof setTimeout> | null = null
+let speechSeq = 0
+let lastSpeechText = ''
+
+function stopSpeechTicker() {
+  if (speechTickTimer != null) {
+    clearInterval(speechTickTimer)
+    speechTickTimer = null
+  }
+}
+
+function clearSpeechShowTimer() {
+  if (speechClearTimer != null) {
+    clearTimeout(speechClearTimer)
+    speechClearTimer = null
+  }
+}
+
+function startSpeechTicker() {
+  stopSpeechTicker()
+  speechTickTimer = setInterval(() => {
+    tryShowAnimalSpeech()
+  }, cfg.speech.tickMs)
+}
+
+function pickAnimalLine() {
+  const lines = cfg.speech.lines
+  const pool = lines.filter((line) => line !== lastSpeechText)
+  const list = pool.length > 0 ? pool : [...lines]
+  const text = list[Math.floor(Math.random() * list.length)] ?? lines[0]
+  lastSpeechText = text
+  return text
+}
+
+function canShowAnimalSpeech() {
+  return rocketPhase.value === 'idle' && !bubbleOpen.value && !animalSpeech.value
+}
+
+function hideAnimalSpeech() {
+  animalSpeech.value = null
+  clearSpeechShowTimer()
+}
+
+/** 每隔 tickMs 掷一次随机数，大于 showThreshold 时展示一条随机台词 */
+function tryShowAnimalSpeech() {
+  if (!canShowAnimalSpeech()) return
+  if (Math.random() <= cfg.speech.showThreshold) return
+
+  animalSpeech.value = { id: ++speechSeq, text: pickAnimalLine() }
+  clearSpeechShowTimer()
+  speechClearTimer = setTimeout(() => {
+    animalSpeech.value = null
+    speechClearTimer = null
+  }, cfg.speech.showMs)
+}
+
+function onAnimalSpeechEnd(e: AnimationEvent) {
+  // scoped 样式会给 keyframes 加哈希后缀，不能用全等判断
+  if (!e.animationName.includes('ftb-speech-life')) return
+  animalSpeech.value = null
+  clearSpeechShowTimer()
+}
 
 type TermItem = { title: string; text: string; example?: string }
 
@@ -144,10 +223,6 @@ const SUMMARY_ROWS: { term: string; mean: string; ex: string }[] = [
   { term: '用言', mean: '动・イ・ナ（有活用）', ex: '書く、高い、静かだ' },
 ]
 
-const LONG_MS = 550
-const ROCKET_LAUNCH_MS = 780
-const ROCKET_LAND_MS = 480
-
 type RocketPhase = 'idle' | 'launching' | 'landing'
 const rocketPhase = ref<RocketPhase>('idle')
 
@@ -194,8 +269,8 @@ function launchRocketToTop() {
     rocketTimer = setTimeout(() => {
       rocketPhase.value = 'idle'
       rocketTimer = null
-    }, ROCKET_LAND_MS)
-  }, ROCKET_LAUNCH_MS)
+    }, cfg.fab.rocketLandMs)
+  }, cfg.fab.rocketLaunchMs)
 }
 
 function onFabPointerDown(e: PointerEvent) {
@@ -219,7 +294,7 @@ function onFabPointerDown(e: PointerEvent) {
     } catch {
       /* ignore */
     }
-  }, LONG_MS)
+  }, cfg.fab.longPressMs)
 }
 
 function onFabPointerUp(e: PointerEvent) {
@@ -293,18 +368,29 @@ function setBubbleScrollLock(locked: boolean) {
 
 watch(bubbleOpen, (open) => {
   setBubbleScrollLock(open)
+  if (open) hideAnimalSpeech()
+})
+
+watch(rocketPhase, (phase) => {
+  if (phase !== 'idle') hideAnimalSpeech()
+})
+
+onMounted(() => {
+  startSpeechTicker()
 })
 
 onBeforeUnmount(() => {
   clearPressTimer()
   clearRocketTimer()
+  stopSpeechTicker()
+  clearSpeechShowTimer()
   setBubbleScrollLock(false)
 })
 </script>
 
 <template>
   <Teleport to="body">
-    <div class="ftb-root">
+    <div class="ftb-root" :style="ftbRootVars">
       <Transition name="ftb-fade">
         <div
           v-show="bubbleOpen"
@@ -386,13 +472,25 @@ onBeforeUnmount(() => {
           <span class="ftb-rocket-flame ftb-rocket-flame--r" />
           <span class="ftb-rocket-trail" />
         </div>
-        <img
-          class="ftb-animal"
-          :src="dailyAnimalSrc"
-          alt=""
-          aria-hidden="true"
-          draggable="false"
-        />
+        <div class="ftb-animal-wrap">
+          <p
+            v-if="animalSpeech"
+            :key="animalSpeech.id"
+            class="ftb-animal-speech"
+            role="status"
+            aria-live="polite"
+            @animationend="onAnimalSpeechEnd"
+          >
+            {{ animalSpeech.text }}
+          </p>
+          <img
+            class="ftb-animal"
+            :src="dailyAnimalSrc"
+            alt=""
+            aria-hidden="true"
+            draggable="false"
+          />
+        </div>
         <button
           type="button"
           class="ftb-fab"
@@ -591,6 +689,61 @@ onBeforeUnmount(() => {
   transition: transform 0.2s cubic-bezier(0.34, 1.15, 0.64, 1);
 }
 
+.ftb-animal-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ftb-animal-speech {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 0.3rem);
+  z-index: 2;
+  max-width: 10.5rem;
+  margin: 0;
+  padding: 0.42rem 0.58rem;
+  font-size: 0.72rem;
+  line-height: 1.42;
+  text-align: left;
+  color: #1b4332;
+  background: rgba(255, 255, 255, 0.97);
+  border: 1px solid rgba(45, 106, 79, 0.2);
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+  animation: ftb-speech-life var(--ftb-speech-dur, 4200ms) ease forwards;
+}
+
+.ftb-animal-speech::after {
+  content: '';
+  position: absolute;
+  right: 1rem;
+  bottom: -5px;
+  border: 5px solid transparent;
+  border-top-color: rgba(255, 255, 255, 0.97);
+  filter: drop-shadow(0 1px 0 rgba(45, 106, 79, 0.12));
+}
+
+@keyframes ftb-speech-life {
+  0% {
+    opacity: 0;
+    transform: translateY(5px) scale(0.94);
+  }
+  12% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  68% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.97);
+  }
+}
+
 .ftb-animal {
   position: relative;
   z-index: 1;
@@ -636,12 +789,12 @@ onBeforeUnmount(() => {
 }
 
 .ftb-fab-wrap--launching {
-  animation: ftb-rocket-launch 0.78s cubic-bezier(0.33, 0.86, 0.42, 1) forwards;
+  animation: ftb-rocket-launch var(--ftb-rocket-launch, 780ms) cubic-bezier(0.33, 0.86, 0.42, 1) forwards;
 }
 
 .ftb-fab-wrap--launching .ftb-animal {
   transition: none;
-  animation: ftb-animal-launch 0.78s cubic-bezier(0.33, 0.86, 0.42, 1) forwards;
+  animation: ftb-animal-launch var(--ftb-rocket-launch, 780ms) cubic-bezier(0.33, 0.86, 0.42, 1) forwards;
 }
 
 .ftb-fab-wrap--launching .ftb-fab {
@@ -652,7 +805,7 @@ onBeforeUnmount(() => {
 
 .ftb-fab-wrap--landing {
   opacity: 0;
-  animation: ftb-rocket-land 0.48s cubic-bezier(0.34, 1.35, 0.64, 1) forwards;
+  animation: ftb-rocket-land var(--ftb-rocket-land, 480ms) cubic-bezier(0.34, 1.35, 0.64, 1) forwards;
 }
 
 .ftb-fab-wrap--landing .ftb-animal {
@@ -761,7 +914,7 @@ onBeforeUnmount(() => {
   margin-left: -1.5px;
   border-radius: 999px;
   background: linear-gradient(to bottom, rgba(255, 193, 7, 0.85), rgba(255, 87, 34, 0.15), transparent);
-  animation: ftb-trail-stretch 0.78s ease-in forwards;
+  animation: ftb-trail-stretch var(--ftb-rocket-launch, 780ms) ease-in forwards;
 }
 
 @keyframes ftb-flame-pulse {
@@ -898,6 +1051,20 @@ onBeforeUnmount(() => {
   .ftb-fab-wrap--launching .ftb-animal {
     animation: none !important;
   }
+
+  .ftb-animal-speech {
+    animation: ftb-speech-life-reduced var(--ftb-speech-dur-reduced, 3000ms) ease forwards;
+  }
+}
+
+@keyframes ftb-speech-life-reduced {
+  0%,
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -936,6 +1103,17 @@ onBeforeUnmount(() => {
   .ftb-card {
     background: rgba(149, 213, 178, 0.08);
     border-color: rgba(149, 213, 178, 0.15);
+  }
+
+  .ftb-animal-speech {
+    color: #d8f3dc;
+    background: rgba(32, 34, 38, 0.96);
+    border-color: rgba(149, 213, 178, 0.22);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+  }
+
+  .ftb-animal-speech::after {
+    border-top-color: rgba(32, 34, 38, 0.96);
   }
 
   .ftb-card__t {
