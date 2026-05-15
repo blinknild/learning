@@ -42,6 +42,7 @@ const totalCount = data.items.length
       <article v-for="item in todaysItems" :key="item.id" class="card">
         <div class="card-head">
           <span class="badge" :data-level="item.level">{{ item.level }}</span>
+          <span class="tag-pill">{{ item.tag }}</span>
           <span class="id">#{{ item.id }}</span>
         </div>
         <h2 class="pattern">{{ item.pattern }}</h2>
@@ -174,6 +175,15 @@ h1 {
   background: #1d3557;
 }
 
+.tag-pill {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.15em 0.45em;
+  border-radius: 999px;
+  background: rgba(108, 117, 125, 0.18);
+  color: inherit;
+}
+
 .id {
   font-size: 0.8rem;
   opacity: 0.65;
@@ -276,6 +286,10 @@ h1 {
 
   .usage-block + .usage-block {
     border-top-color: rgba(255, 255, 255, 0.12);
+  }
+
+  .tag-pill {
+    background: rgba(200, 205, 212, 0.15);
   }
 }
 </style>

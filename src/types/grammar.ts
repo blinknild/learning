@@ -16,6 +16,8 @@ export interface GrammarUsage {
 export interface GrammarItem {
   id: number
   level: JlptLevel
+  /** 意义相近归类用的小标签（同类条目使用同一文案） */
+  tag: string
   pattern: string
   meaning: string
   usages: GrammarUsage[]

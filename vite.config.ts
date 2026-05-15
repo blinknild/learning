@@ -3,5 +3,9 @@ import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
   plugins: [vue()],
-  base: '/learning/'   // 这里的名字与你的仓库名完全一致，前后都有斜杠
+  base: '/learning/', // 与 GitHub Pages 仓库路径一致；本地也要带该前缀访问
+  server: {
+    // 默认只监听 localhost，用本机局域网 IP 访问时需放开
+    host: true,
+  },
 })
