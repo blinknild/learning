@@ -17,17 +17,34 @@ const tagOptions = computed(() => {
   return [...set].sort((a, b) => a.localeCompare(b, 'zh-CN'))
 })
 
+/** 失焦当前控件，收起移动端因可筛选下拉而弹起的键盘 */
+function blurActiveToDismissMobileKeyboard() {
+  const el = document.activeElement
+  if (el instanceof HTMLElement) el.blur()
+}
+
 function onTagChange(val: string | undefined) {
   if (val) {
     query.value = val
     void nextTick(() => {
       tagPicker.value = undefined
+      // 再等一帧：等下拉关闭、内部 input 状态落稳后再 blur，避免键盘残留
+      void nextTick(() => {
+        blurActiveToDismissMobileKeyboard()
+      })
     })
   }
 }
 
 function onTagClear() {
   query.value = ''
+}
+
+/** 清空搜索框与标签选择，并收起键盘 */
+function onSearchReset() {
+  query.value = ''
+  tagPicker.value = undefined
+  blurActiveToDismissMobileKeyboard()
 }
 
 /** 标签下拉展开时禁止背后页面滚动（移动端尤其明显） */
@@ -88,12 +105,18 @@ const hasActiveFilter = computed(() => query.value.trim().length > 0)
     <header class="toolbar">
       <RouterLink class="btn-back" :to="{ name: 'home' }">← 返回首页</RouterLink>
       <h1 class="title">全部语法条目</h1>
-      <p class="sub">
-        共 {{ sortedItems.length }} 条（配置：<code>grammar-n2n3.json</code>）
-        <template v-if="hasActiveFilter"> · 当前显示 {{ filteredItems.length }} 条</template>
-      </p>
+      <div class="sub">
+        <p class="sub-line">
+          共 {{ sortedItems.length }} 条（配置：<code>grammar-n2n3.json</code>）
+        </p>
+        <p
+          class="sub-line sub-line-filter"
+          :aria-hidden="!hasActiveFilter"
+        >
+          <template v-if="hasActiveFilter">当前显示 {{ filteredItems.length }}/{{ sortedItems.length }} 条</template>
+        </p>
+      </div>
       <div class="search-row">
-        <label class="search-label" for="grammar-search-input">搜索</label>
         <div class="search-ep" role="search">
           <el-select
             id="grammar-tag-inline"
@@ -122,6 +145,14 @@ const hasActiveFilter = computed(() => query.value.trim().length > 0)
             placeholder="标题／标签／释义"
             @clear="onTagClear"
           />
+          <button
+            type="button"
+            class="search-ep__reset"
+            :disabled="!hasActiveFilter"
+            @click="onSearchReset"
+          >
+            重置
+          </button>
         </div>
       </div>
     </header>
@@ -208,8 +239,22 @@ const hasActiveFilter = computed(() => query.value.trim().length > 0)
 
 .sub {
   margin: 0;
+}
+
+.sub-line {
+  margin: 0;
   font-size: 0.88rem;
   opacity: 0.85;
+  line-height: 1.45;
+}
+
+.sub-line + .sub-line {
+  margin-top: 0.2rem;
+}
+
+/** 筛选统计行：无筛选时也占位一行，避免下方搜索区随 v-if 跳动 */
+.sub-line-filter {
+  min-height: 1.45em;
 }
 
 .sub code {
@@ -237,19 +282,61 @@ const hasActiveFilter = computed(() => query.value.trim().length > 0)
 
 .search-ep {
   display: flex;
-  gap: 0.65rem;
-  align-items: flex-start;
+  gap: 0.5rem;
+  align-items: center;
   width: 100%;
 }
 
 .search-ep__tag {
-  width: 7.5rem;
+  width: 5rem;
   flex-shrink: 0;
 }
 
 .search-ep__input {
   flex: 1;
   min-width: 0;
+}
+
+.search-ep__reset {
+  flex-shrink: 0;
+  box-sizing: border-box;
+  height: var(--el-component-size, 32px);
+  margin: 0;
+  padding: 0 0.7rem;
+  font: inherit;
+  font-size: var(--el-font-size-base, 14px);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--el-text-color-regular, #606266);
+  border: none;
+  border-radius: 10px;
+  background-color: var(--el-fill-color-blank, #fff);
+  box-shadow: 0 0 0 1px var(--el-border-color, #dcdfe6) inset;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    box-shadow 0.15s ease,
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.search-ep__reset:hover:not(:disabled) {
+  color: var(--el-text-color-primary, #303133);
+  box-shadow: 0 0 0 1px var(--el-border-color-hover, #c0c4cc) inset;
+}
+
+.search-ep__reset:focus,
+.search-ep__reset:focus-visible,
+.search-ep__reset:active:not(:disabled) {
+  outline: none;
+  box-shadow: 0 0 0 1px var(--el-border-color, #dcdfe6) inset;
+}
+
+.search-ep__reset:disabled {
+  cursor: not-allowed;
+  color: var(--el-text-color-placeholder, #a8abb2);
+  background-color: var(--el-fill-color-light, #f5f7fa);
+  box-shadow: 0 0 0 1px var(--el-border-color-light, #e4e7ed) inset;
 }
 
 .search-ep :deep(.el-select__wrapper),
@@ -400,6 +487,29 @@ const hasActiveFilter = computed(() => query.value.trim().length > 0)
   .btn-back:hover {
     background: rgba(50, 52, 58, 0.95);
     border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .search-ep__reset:not(:disabled) {
+    color: rgba(255, 255, 255, 0.88);
+    background-color: rgba(40, 42, 48, 0.75);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+  }
+
+  .search-ep__reset:hover:not(:disabled) {
+    color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.22) inset;
+  }
+
+  .search-ep__reset:focus,
+  .search-ep__reset:focus-visible,
+  .search-ep__reset:active:not(:disabled) {
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+  }
+
+  .search-ep__reset:disabled {
+    color: rgba(255, 255, 255, 0.35);
+    background-color: rgba(32, 34, 38, 0.65);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08) inset;
   }
 
   .card {
