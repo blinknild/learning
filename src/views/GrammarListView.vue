@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, ref } from 'vue'
 import { RouterLink } from 'vue-router'
+import GrammarVerifiedBadge from '../components/GrammarVerifiedBadge.vue'
 import raw from '../data/grammar-n2n3.json'
 import type { GrammarData } from '../types/grammar'
 
@@ -9,7 +10,7 @@ const data = raw as GrammarData
 const sortedItems = computed(() => [...data.items].sort((a, b) => a.id - b.id))
 
 const query = ref('')
-/** 标签下拉选中值；选完后会清空以便再次选同一标签 */
+/** 标签筛选：选中后保留在下拉框，不写入右侧关键词框 */
 const tagPicker = ref<string | undefined>(undefined)
 
 const tagOptions = computed(() => {
@@ -23,21 +24,16 @@ function blurActiveToDismissMobileKeyboard() {
   if (el instanceof HTMLElement) el.blur()
 }
 
-function onTagChange(val: string | undefined) {
-  if (val) {
-    query.value = val
+function onTagChange() {
+  void nextTick(() => {
     void nextTick(() => {
-      tagPicker.value = undefined
-      // 再等一帧：等下拉关闭、内部 input 状态落稳后再 blur，避免键盘残留
-      void nextTick(() => {
-        blurActiveToDismissMobileKeyboard()
-      })
+      blurActiveToDismissMobileKeyboard()
     })
-  }
+  })
 }
 
 function onTagClear() {
-  query.value = ''
+  blurActiveToDismissMobileKeyboard()
 }
 
 /** 清空搜索框与标签选择，并收起键盘 */
@@ -83,27 +79,32 @@ onBeforeUnmount(() => {
   setTagSelectScrollLock(false)
 })
 
-/** 标题／标签／释义关键词模糊匹配（英文忽略大小写） */
+/** 标签 + 关键词同时生效；关键词匹配标题／释义／条目标签（英文忽略大小写） */
 const filteredItems = computed(() => {
   const list = sortedItems.value
+  const tag = tagPicker.value
   const rawQ = query.value.trim()
-  if (!rawQ) return list
+  let next = tag ? list.filter((item) => item.tag === tag) : list
+  if (!rawQ) return next
   const q = rawQ.toLowerCase()
-  return list.filter(
+  next = next.filter(
     (item) =>
       item.pattern.toLowerCase().includes(q) ||
       item.tag.toLowerCase().includes(q) ||
       item.meaning.toLowerCase().includes(q),
   )
+  return next
 })
 
-const hasActiveFilter = computed(() => query.value.trim().length > 0)
+const hasActiveFilter = computed(
+  () => query.value.trim().length > 0 || Boolean(tagPicker.value),
+)
 </script>
 
 <template>
   <main class="list-page">
     <header class="toolbar">
-      <RouterLink class="btn-back" :to="{ name: 'home' }">← 返回首页</RouterLink>
+      <RouterLink replace class="btn-back" :to="{ name: 'home' }">← 返回首页</RouterLink>
       <h1 class="title">全部语法条目</h1>
       <div class="sub">
         <p class="sub-line">
@@ -125,7 +126,7 @@ const hasActiveFilter = computed(() => query.value.trim().length > 0)
             clearable
             filterable
             class="search-ep__tag"
-            aria-label="选择标签填入搜索框"
+            aria-label="按标签筛选"
             @change="onTagChange"
             @clear="onTagClear"
             @visible-change="onTagSelectVisible"
@@ -142,8 +143,8 @@ const hasActiveFilter = computed(() => query.value.trim().length > 0)
             v-model="query"
             class="search-ep__input"
             clearable
-            placeholder="标题／标签／释义"
-            @clear="onTagClear"
+            placeholder="标题／释义（可与标签组合）"
+            @clear="blurActiveToDismissMobileKeyboard"
           />
           <button
             type="button"
@@ -167,6 +168,7 @@ const hasActiveFilter = computed(() => query.value.trim().length > 0)
           <span class="badge" :data-level="item.level">{{ item.level }}</span>
           <span class="tag-pill">{{ item.tag }}</span>
           <span class="id">#{{ item.id }}</span>
+          <GrammarVerifiedBadge :verified="item.verified" />
         </div>
         <h2 class="pattern">{{ item.pattern }}</h2>
         <p class="meaning">{{ item.meaning }}</p>
@@ -190,7 +192,7 @@ const hasActiveFilter = computed(() => query.value.trim().length > 0)
     </section>
 
     <p v-else-if="hasActiveFilter" class="empty">
-      没有匹配「{{ query.trim() }}」的条目，可换关键词或从左侧再选标签试试。
+      当前条件下没有匹配条目，可调整关键词或标签后重试。
     </p>
   </main>
 </template>

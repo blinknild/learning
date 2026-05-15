@@ -7,6 +7,7 @@
       "tag": "时间",
       "pattern": "～際に／～際して",
       "meaning": "在……的时候（正式、书面）",
+      "verified": true,
       "usages": [
         {
           "continuation": "动词辞书形 + 際に／名词 + の + 際に",
@@ -1034,17 +1035,22 @@
       "level": "N2",
       "tag": "范围",
       "pattern": "～限り（范围）",
-      "meaning": "在……范围内；尽……",
+      "meaning": "①在所知或条件允许等的范围内 ②名词+の+限り表示竭尽（全力等）",
       "usages": [
         {
-          "continuation": "动词辞书形／可能形 + 限り",
+          "continuation": "动词ている／辞书形・可能形等 + 限り（范围、条件允许）",
           "examples": [
             {
-              "jaHtml": "わたしの<ruby>知<rt>し</rt></ruby>っている<ruby>限<rt>かぎ</rt></ruby>り、かれは<ruby>休<rt>やす</rt></んだことがない。",
+              "jaHtml": "わたしの<ruby>知<rt>し</rt></ruby>っている<ruby>限<rt>かぎ</rt></ruby>り、かれは<ruby>休<rt>やす</rt></ruby>んだことがない。",
               "zh": "据我所知，他从未请过假。"
-            },
+            }
+          ]
+        },
+        {
+          "continuation": "名词 + の + 限り（竭尽）",
+          "examples": [
             {
-              "jaHtml": "<ruby>力<rt>ちから</rt></ruby>の<ruby>限<rt>かぎ</rt></ruby>り、<ruby>戦<rt>たたか</rt></った。",
+              "jaHtml": "<ruby>力<rt>ちから</rt></ruby>の<ruby>限<rt>かぎ</rt></ruby>り、<ruby>戦<rt>たたか</rt></ruby>った。",
               "zh": "尽了全力去战斗。"
             }
           ]
@@ -1078,14 +1084,23 @@
       "level": "N2",
       "tag": "范围",
       "pattern": "～にかけては／～にかけても",
-      "meaning": "在……方面（自信、特长）",
+      "meaning": "在……方面（自信、特长）；就连……也",
       "usages": [
         {
-          "continuation": "名词 + にかけては",
+          "continuation": "名词 + にかけては（正面强调）",
           "examples": [
             {
               "jaHtml": "かれは<ruby>料理<rt>りょうり</rt></ruby>にかけては、<ruby>右<rt>みぎ</rt></ruby>に<ruby>出<rt>で</rt></ruby>る<ruby>者<rt>もの</rt></ruby>はいない。",
               "zh": "论做菜，没人能比得上他。"
+            }
+          ]
+        },
+        {
+          "continuation": "名词 + にかけても（让步、全面肯定）",
+          "examples": [
+            {
+              "jaHtml": "<ruby>記憶力<rt>きおくりょく</rt></ruby>にかけても、かれに<ruby>敵<rt>かな</rt></ruby>う<ruby>者<rt>もの</rt></ruby>はいない。",
+              "zh": "就连记忆力也没人能与他相比。"
             }
           ]
         }
@@ -1102,8 +1117,17 @@
           "continuation": "名词 + をめぐって",
           "examples": [
             {
-              "jaHtml": "その<ruby>問題<rt>もんだい</rt></ruby>をめぐって、<ruby>激<rt>はげ</rt></ruby>しい<ruby>議論<rt>ぎろん</rt></ruby>が<ruby>交<rt>か</rt></わされた。",
+              "jaHtml": "その<ruby>問題<rt>もんだい</rt></ruby>をめぐって、<ruby>激<rt>はげ</rt></ruby>しい<ruby>議論<rt>ぎろん</rt></ruby>が<ruby>交<rt>か</rt></ruby>わされた。",
               "zh": "围绕那个问题展开了激烈讨论。"
+            }
+          ]
+        },
+        {
+          "continuation": "名词 + をめぐる + 名词（连体修饰）",
+          "examples": [
+            {
+              "jaHtml": "その<ruby>問題<rt>もんだい</rt></ruby>を<ruby>巡<rt>めぐ</rt></ruby>る<ruby>議論<rt>ぎろん</rt></ruby>が<ruby>白熱<rt>はくねつ</rt></ruby>している。",
+              "zh": "围绕那个问题的争论正趋于白热化。"
             }
           ]
         }
@@ -1117,7 +1141,16 @@
       "meaning": "长达……；涉及……",
       "usages": [
         {
-          "continuation": "名词 + にわたって",
+          "continuation": "名词 + にわたって（谓语部分）",
+          "examples": [
+            {
+              "jaHtml": "この<ruby>大会<rt>たいかい</rt></ruby>は<ruby>三<rt>みっ</rt></ruby>か<ruby>日<rt>か</rt></ruby>にわたって<ruby>行<rt>おこな</rt></ruby>われた。",
+              "zh": "这次大会持续了三天。"
+            }
+          ]
+        },
+        {
+          "continuation": "名词 + にわたる + 名词（连体修饰）",
           "examples": [
             {
               "jaHtml": "１０<ruby>年<rt>ねん</rt></ruby>にわたる<ruby>研究<rt>けんきゅう</rt></ruby>の<ruby>末<rt>すえ</rt></ruby>、<ruby>新薬<rt>しんやく</rt></ruby>が<ruby>開発<rt>かいはつ</rt></ruby>された。",
@@ -2008,7 +2041,7 @@
               "zh": "满身大汗地干活。"
             },
             {
-              "jaHtml": "<ruby>血<rt>ち</rt></ruby>まみれの<ruby>手<rt>て</rt></だ。",
+              "jaHtml": "<ruby>血<rt>ち</rt></ruby>まみれの<ruby>手<rt>て</rt></ruby>だ。",
               "zh": "满是血的手。"
             }
           ]
@@ -2152,8 +2185,12 @@
           "continuation": "动词连用形 + 得る／得ない",
           "examples": [
             {
-              "jaHtml": "そんなことはあり<ruby>得<rt>え</rt></ない。",
+              "jaHtml": "そんなことはあり<ruby>得<rt>え</rt></ruby>ない。",
               "zh": "那样的事不可能发生。"
+            },
+            {
+              "jaHtml": "そんなこともあり<ruby>得<rt>え</rt></ruby>る。",
+              "zh": "那种事也并非不可能。"
             }
           ]
         }
@@ -2170,7 +2207,7 @@
           "continuation": "名词／动词连用形 + こそ",
           "examples": [
             {
-              "jaHtml": "これこそ、わたしが<ruby>探<rt>さが</rt></していた<ruby>本<rt>ほん</rt></です。",
+              "jaHtml": "これこそ、わたしが<ruby>探<rt>さが</rt></ruby>していた<ruby>本<rt>ほん</rt></ruby>です。",
               "zh": "这正是我一直在找的书。"
             }
           ]
@@ -2242,8 +2279,12 @@
           "continuation": "お + 动词连用形 + いたす／ご + サ变词干 + いたす",
           "examples": [
             {
-              "jaHtml": "ご<ruby>連絡<rt>れんらく</rt></いたします。",
+              "jaHtml": "ご<ruby>連絡<rt>れんらく</rt></ruby>いたします。",
               "zh": "我会与您联系。"
+            },
+            {
+              "jaHtml": "<ruby>後<rt>あと</rt></ruby>ほどお<ruby>電話<rt>でんわ</rt></ruby>いたします。",
+              "zh": "稍后我会给您打电话。"
             }
           ]
         }
@@ -2386,7 +2427,7 @@
           "continuation": "名词 + に即して",
           "examples": [
             {
-              "jaHtml": "<ruby>事実<rt>じじつ</rt></に<ruby>即<rt>そく</rt></して<ruby>報告<rt>ほうこく</rt></する。",
+              "jaHtml": "<ruby>事実<rt>じじつ</rt></ruby>に<ruby>即<rt>そく</rt></ruby>して<ruby>報告<rt>ほうこく</rt></ruby>する。",
               "zh": "根据事实报告。"
             }
           ]

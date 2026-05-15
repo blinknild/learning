@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
+import GrammarVerifiedBadge from '../components/GrammarVerifiedBadge.vue'
 import raw from '../data/grammar-n2n3.json'
 import type { GrammarData, GrammarItem } from '../types/grammar'
 
@@ -44,6 +45,7 @@ const totalCount = data.items.length
           <span class="badge" :data-level="item.level">{{ item.level }}</span>
           <span class="tag-pill">{{ item.tag }}</span>
           <span class="id">#{{ item.id }}</span>
+          <GrammarVerifiedBadge :verified="item.verified" />
         </div>
         <h2 class="pattern">{{ item.pattern }}</h2>
         <p class="meaning">{{ item.meaning }}</p>

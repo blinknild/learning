@@ -1,5 +1,21 @@
 <script setup lang="ts">
-import { onBeforeUnmount, ref, watch } from 'vue'
+import { computed, onBeforeUnmount, ref, watch } from 'vue'
+
+const animalModules = import.meta.glob<string>('../assets/images/animal_*.svg', {
+  eager: true,
+  import: 'default',
+})
+
+const animalUrls = Object.keys(animalModules)
+  .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
+  .map((key) => animalModules[key])
+
+/** 按当月日期对 15 取余选图：1 日→01，15 日→15，16 日→01 … */
+const dailyAnimalSrc = computed(() => {
+  const day = new Date().getDate()
+  const index = day % 15 || 15
+  return animalUrls[index - 1] ?? animalUrls[0]
+})
 
 const bubbleOpen = ref(false)
 
@@ -315,20 +331,32 @@ onBeforeUnmount(() => {
         </aside>
       </Transition>
 
-      <button
-        type="button"
-        class="ftb-fab"
-        :aria-expanded="bubbleOpen"
-        aria-controls="ftb-panel-content"
-        aria-label="语法术语速查，长按回到页面顶部"
-        @pointerdown="onFabPointerDown"
-        @pointerup="onFabPointerUp"
-        @pointercancel="onFabPointerCancel"
-        @click="onFabClick"
-        @contextmenu.prevent
+      <div
+        class="ftb-fab-wrap"
+        :class="{ 'ftb-fab-wrap--open': bubbleOpen }"
       >
-        <span class="ftb-fab__icon" aria-hidden="true">?</span>
-      </button>
+        <img
+          class="ftb-animal"
+          :src="dailyAnimalSrc"
+          alt=""
+          aria-hidden="true"
+          draggable="false"
+        />
+        <button
+          type="button"
+          class="ftb-fab"
+          :aria-expanded="bubbleOpen"
+          aria-controls="ftb-panel-content"
+          aria-label="语法术语速查，长按回到页面顶部"
+          @pointerdown="onFabPointerDown"
+          @pointerup="onFabPointerUp"
+          @pointercancel="onFabPointerCancel"
+          @click="onFabClick"
+          @contextmenu.prevent
+        >
+          <span class="ftb-fab__icon" aria-hidden="true">?</span>
+        </button>
+      </div>
     </div>
   </Teleport>
 </template>
@@ -502,9 +530,37 @@ onBeforeUnmount(() => {
   color: #444;
 }
 
-.ftb-fab {
+.ftb-fab-wrap {
   position: relative;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform-origin: 50% 88%;
+  transition: transform 0.2s cubic-bezier(0.34, 1.15, 0.64, 1);
+}
+
+.ftb-animal {
+  position: relative;
+  z-index: 1;
+  width: 2rem;
+  height: 2rem;
+  margin-bottom: -0.72rem;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.12));
+  transform-origin: 50% 100%;
+  transition:
+    transform 0.2s cubic-bezier(0.34, 1.15, 0.64, 1),
+    margin-bottom 0.2s cubic-bezier(0.34, 1.15, 0.64, 1),
+    filter 0.2s ease;
+}
+
+.ftb-fab {
+  position: relative;
+  z-index: 0;
   width: 3rem;
   height: 3rem;
   padding: 0;
@@ -519,20 +575,67 @@ onBeforeUnmount(() => {
   font-weight: 700;
   line-height: 1;
   box-shadow: 0 4px 14px rgba(27, 67, 50, 0.45);
-  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  transition: box-shadow 0.2s ease;
 }
 
-.ftb-fab:hover {
+.ftb-fab-wrap:hover {
   transform: scale(1.04);
+}
+
+.ftb-fab-wrap:hover .ftb-animal {
+  margin-bottom: -0.8rem;
+  transform: translateY(1px);
+}
+
+.ftb-fab-wrap:hover .ftb-fab {
   box-shadow: 0 6px 18px rgba(27, 67, 50, 0.5);
 }
 
-.ftb-fab:active {
-  transform: scale(0.96);
+.ftb-fab-wrap:active {
+  transform: scale(0.95);
+  transition-duration: 0.1s;
+}
+
+.ftb-fab-wrap:active .ftb-animal {
+  margin-bottom: -0.88rem;
+  transform: translateY(3px) scale(0.97);
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+  transition-duration: 0.1s;
+}
+
+.ftb-fab-wrap:active .ftb-fab {
+  box-shadow: 0 2px 8px rgba(27, 67, 50, 0.38);
+  transition-duration: 0.1s;
+}
+
+.ftb-fab-wrap--open {
+  transform: scale(1.02);
+}
+
+.ftb-fab-wrap--open .ftb-animal {
+  margin-bottom: -0.8rem;
+  transform: translateY(1px);
+}
+
+.ftb-fab-wrap--open .ftb-fab {
+  box-shadow: 0 5px 16px rgba(27, 67, 50, 0.48);
 }
 
 .ftb-fab:focus {
   outline: none;
+}
+
+.ftb-fab-wrap:has(.ftb-fab:focus-visible) {
+  transform: scale(1.04);
+}
+
+.ftb-fab-wrap:has(.ftb-fab:focus-visible) .ftb-animal {
+  margin-bottom: -0.8rem;
+  transform: translateY(1px);
+}
+
+.ftb-fab-wrap:has(.ftb-fab:focus-visible) .ftb-fab {
+  box-shadow: 0 6px 18px rgba(27, 67, 50, 0.5);
 }
 
 .ftb-fab:focus-visible {

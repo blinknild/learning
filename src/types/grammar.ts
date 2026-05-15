@@ -20,6 +20,8 @@ export interface GrammarItem {
   tag: string
   pattern: string
   meaning: string
+  /** 官方已审核；为 true 时卡片显示审核标识 */
+  verified?: boolean
   usages: GrammarUsage[]
 }
 
